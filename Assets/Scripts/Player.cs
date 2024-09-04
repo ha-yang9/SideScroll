@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float attackInterval = 1.0f;
+    public int damage = 100;
+
     private void Start()
     {
         StartCoroutine(AttackRoutine());
@@ -13,21 +16,18 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1.0f);
-            AttackMonster();
+            yield return new WaitForSeconds(attackInterval);
+            Attack();
         }
     }
 
-    private void AttackMonster()
+    private void Attack()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 2f);
-        foreach (var hit in hits)
+        Monster target = FindObjectOfType<Monster>();
+
+        if (target != null)
         {
-            Monster monster = hit.GetComponent<Monster>();
-            if (monster != null)
-            {
-                monster.TakeDamage(100);
-            }
+            target.TakeDamage(damage);
         }
     }
 }
