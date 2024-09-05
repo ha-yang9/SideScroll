@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class MonsterManager : MonoBehaviour
@@ -16,26 +17,23 @@ public class MonsterManager : MonoBehaviour
             monsterQueue.Enqueue(prefab);
         }
 
-        // 첫 번째 몬스터를 스폰
         SpawnNextMonster();
     }
-
     public void SpawnNextMonster()
     {
         if (monsterQueue.Count > 0)
         {
-            // 이전 몬스터가 존재하면 제거
-            if (currentMonster != null)
-            {
-                Destroy(currentMonster);
-            }
+        if (currentMonster != null)
+        {
+            Destroy(currentMonster);
+        }
 
-            GameObject nextMonsterPrefab = monsterQueue.Dequeue();
-            currentMonster = Instantiate(nextMonsterPrefab, new Vector3(5, 0, 0), Quaternion.identity); // 원하는 위치에 스폰
+        GameObject nextMonsterPrefab = monsterQueue.Dequeue();
+            currentMonster = Instantiate(nextMonsterPrefab, new Vector3(5, 0, 0), Quaternion.identity);
         }
         else
         {
-            Debug.Log("모든 몬스터가 죽었습니다!");
+            Debug.Log("몬스터가 생성되었습니다.");
         }
     }
 }

@@ -10,29 +10,33 @@ public class Monster : MonoBehaviour
     public float speed;
     public int maxHealth;
     public int currentHealth;
-    public Slider healthBar; // 체력바 UI
+    public Slider healthBar; // 체력바
+
+    private Coroutine moveCoroutine;
 
     private void Start()
     {
-        // 체력 초기 설정
-        InitializeHealthBar();
-        StartCoroutine(MoveRoutine());
+        if (healthBar != null)
+        {
+            // 체력 바 초기화
+            healthBar.maxValue = maxHealth;
+            healthBar.value = currentHealth;
+        }
+
+        // 이동 루틴 시작
+        moveCoroutine = StartCoroutine(MoveRoutine());
     }
 
-    // 몬스터 초기화 함수 (몬스터 정보 입력)
+    // 몬스터 데이터 초기화 메서드
     public void Initialize(string name, string grade, float speed, int health)
     {
-        monsterName = name;
+        this.monsterName = name;
         this.grade = grade;
         this.speed = speed;
-        maxHealth = health;
-        currentHealth = health;
-        InitializeHealthBar(); // 체력바 초기화
-    }
+        this.maxHealth = health;
+        this.currentHealth = health;
 
-    // 체력바 초기화
-    private void InitializeHealthBar()
-    {
+        // 체력 바 초기화 (다시 세팅)
         if (healthBar != null)
         {
             healthBar.maxValue = maxHealth;
@@ -40,13 +44,13 @@ public class Monster : MonoBehaviour
         }
     }
 
-    // 몬스터 정보 팝업 띄우기 (마우스 클릭 시)
+    // 몬스터 클릭 시 정보 팝업 호출
     private void OnMouseDown()
     {
         MonsterInfoPopup popup = FindObjectOfType<MonsterInfoPopup>();
         if (popup != null)
         {
-            popup.SetMonsterInfo(this); // 현재 몬스터 정보 설정
+            popup.SetMonsterInfo(this);
         }
     }
 
@@ -61,30 +65,36 @@ public class Monster : MonoBehaviour
         }
     }
 
-    // 대미지 받는 함수
+    // 몬스터가 데미지를 입을 때 호출
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        UpdateHealthBar();
+        
+        if (healthBar != null)
+        {
+            Debug.Log("아야!");
+            healthBar.value = currentHealth;
+        }
+
         if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    // 체력바 업데이트
-    private void UpdateHealthBar()
-    {
-        if (healthBar != null)
-        {
-            healthBar.value = currentHealth;
-        }
-    }
-
-    // 몬스터가 죽었을 때 호출
+    // 몬스터가 죽을 때 호출
     private void Die()
     {
-        Destroy(gameObject); // 현재 몬스터 제거
-        GameManager.Instance.SpawnNextMonster(); // 다음 몬스터 스폰
+        // 이동 루틴 중단
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }
+
+        // 몬스터 파괴
+        Destroy(gameObject);
+
+        // 다음 몬스터 소환
+        GameManager.Instance.SpawnNextMonster();
     }
 }

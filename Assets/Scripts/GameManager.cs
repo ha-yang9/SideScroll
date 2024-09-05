@@ -17,19 +17,28 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        MonsterDataLoader dataLoader = new MonsterDataLoader();
-        monsterDataList = dataLoader.LoadMonsterData(Application.dataPath + "/Resources/Monsters.csv");
+        // MonsterDataLoader 인스턴스를 생성하고 메서드 호출
+        MonsterDataLoader dataLoader = gameObject.AddComponent<MonsterDataLoader>();
+        monsterDataList = dataLoader.LoadMonsterData("Monsters");
     }
 
     private void Start()
     {
-        SpawnNextMonster();
+        if (monsterDataList != null && monsterDataList.Count > 0)
+        {
+            SpawnNextMonster();
+        }
+        else
+        {
+            Debug.LogError("MonsterDataList is null or empty.");
+        }
     }
 
     public void SpawnNextMonster()
     {
         if (currentMonsterIndex < monsterDataList.Count)
         {
+            Debug.Log("소환!");
             MonsterDataLoader.MonsterData data = monsterDataList[currentMonsterIndex];
             GameObject monsterObject = Instantiate(monsterPrefab, spawnPoint.position, Quaternion.identity);
             Monster monster = monsterObject.GetComponent<Monster>();
@@ -38,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("모든 몬스터가 소환되었습니다!");
+            Debug.LogError("No more monsters to spawn.");
         }
     }
 }
