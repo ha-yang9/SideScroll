@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 684658204282979185}
   - component: {fileID: 5517520761120756423}
   m_Layer: 0
-  m_Name: Skeleton
+  m_Name: Orc rider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,11 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47d367cc6c81d144b158246713fe477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterName: Skeleton
-  grade: Normal
-  speed: 0.5
-  maxHealth: 50
-  currentHealth: 50
+  monsterName: Orc rider
+  grade: Heroic
+  speed: 2.5
+  maxHealth: 1000
+  currentHealth: 1000
   healthBar: {fileID: 5022171584456920235}
 --- !u!1 &1991583320089099467
 GameObject:
