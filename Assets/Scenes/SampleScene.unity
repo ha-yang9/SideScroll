@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 273133617}
+  - component: {fileID: 273133618}
   m_Layer: 0
   m_Name: Canvers
   m_TagString: Untagged
@@ -155,6 +156,24 @@ Transform:
   - {fileID: 393694311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273133618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273133616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74517147a220e674bb702714f35bc53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterPrefabs:
+  - {fileID: 1965132036634307607, guid: 4d107e31aeac6e744b2889a2a826066b, type: 3}
+  - {fileID: 1965132036634307607, guid: dde8b67426a712441b14ed6a09efb5d4, type: 3}
+  - {fileID: 1965132036634307607, guid: c22b783e0fe67ba448f23e75564132f7, type: 3}
+  - {fileID: 1965132036634307607, guid: a94844eb36197904dbc6414484ebff3d, type: 3}
+  - {fileID: 1965132036634307607, guid: 104730ecc3722c54fa87001593e103b8, type: 3}
 --- !u!4 &393694311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2830783304190033150, guid: 2670a586d3a97b748bfbfb990a022637, type: 3}
