@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No more monsters to spawn.");
+            Debug.LogError("몬스터가 더이상 소환되지 않음");
         }
     }
 }
